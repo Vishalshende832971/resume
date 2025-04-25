@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to bottom, #f4f4f9, #e8eaf6);
+            scroll-behavior: smooth;
+            transition: background 0.5s ease, color 0.5s ease; /* Smooth transition for theme change */
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth; /* Enables smooth scrolling */
+        }
+
+        /* Highlight Active Section */
+        nav a.active {
+            color: #FFD700; /* Highlight active link */
+            text-decoration: underline;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px); /* Slight upward movement */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Apply Animation to Sections */
+        section {
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            animation: fadeIn 1s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth fade-in animation */
+            opacity: 0; /* Start hidden */
+            animation-fill-mode: forwards; /* Ensure the animation stays at the end state */
+        }
+
+        /* Delay Animation for Each Section */
+        section:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        section:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        section:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        section:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+        section:nth-child(5) {
+            animation-delay: 1s;
+        }
+
+        /* Header Animation */
+        header {
+            animation: fadeIn 1s cubic-bezier(0.25, 1, 0.5, 1);
+            animation-delay: 0.1s;
+            animation-fill-mode: forwards;
+            opacity: 0;
+        }
+
+        /* Navigation Animation */
+        nav {
+            animation: fadeIn 1s cubic-bezier(0.25, 1, 0.5, 1);
+            animation-delay: 0.1s;
+            animation-fill-mode: forwards;
+            opacity: 0;
+        }
+
+        /* Footer Animation */
+        footer {
+            animation: fadeIn 1s cubic-bezier(0.25, 1, 0.5, 1);
+            animation-delay: 1.2s;
+            animation-fill-mode: forwards;
+            opacity: 0;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(90deg, #1e88e5, #1565c0);
+            color: #fff;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 4rem; /* Adds gap between the nav bar and header */
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .header-text {
+            text-align: left;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.2rem;
+        }
+        .cta-btn {
+            background: #FFD700;
+            color: #005BB5;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .cta-btn:hover {
+            background: #FFC107;
+            transform: scale(1.05);
+        }
+        nav {
+            background: #005BB5;
+            padding: 0.5rem 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        nav a:hover {
+            color: #FFD700;
+            transform: scale(1.1);
+        }
+        .theme-switch {
+            display: inline-block;
+            position: relative;
+            width: 50px;
+            height: 24px;
+        }
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #005BB5;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        section:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .skills, .projects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .skills div, .projects div, .achievement-card {
+            flex: 1 1 calc(33.333% - 1rem);
+            background: #fff;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth scaling transition */
+            text-align: center;
+        }
+        .skills div:hover, .projects div:hover, .achievement-card:hover {
+            transform: scale(1.05); /* Smooth scaling effect */
+            box-shadow: 0 10px 25px rgba(0, 91, 181, 0.4); /* Blue glow shadow */
+        }
+        .contact-box {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: linear-gradient(to bottom, #ffffff, #e6f7ff);
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .contact-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .contact-box .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-box label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #005BB5;
+        }
+        .contact-box input, .contact-box textarea {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth focus transition */
+        }
+        .contact-box input:focus, .contact-box textarea:focus {
+            border-color: #005BB5;
+            box-shadow: 0 0 5px rgba(0, 91, 181, 0.5);
+        }
+        .contact-box .submit-btn {
+            padding: 0.8rem 1.5rem;
+            background: #005BB5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .contact-box .submit-btn:hover {
+            background: #003f7f;
+            transform: scale(1.05);
+        }
+        footer {
+            background: #1f1f1f;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        footer .quick-links {
+            margin: 1rem 0;
+        }
+        footer .quick-links a {
+            color: #FFD700;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer .quick-links a:hover {
+            text-decoration: underline;
+        }
+        footer .social-icons {
+            margin: 1rem 0;
+        }
+        footer .social-icons a {
+            color: #fff;
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        footer .social-icons a:hover {
+            color: #FFD700;
+            transform: scale(1.2);
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #005BB5;
+            color: #fff;
+            padding: 0.8rem;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease, transform 0.3s ease; /* Smooth hover transition */
+        }
+        .back-to-top:hover {
+            background: #003f7f;
+            transform: scale(1.1);
+        }
+        .achievements-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .achievements-modal h2 {
+            margin-top: 0;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .close-modal {
+            background: #005BB5;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        /* Smooth Transition for Elements */
+        header, nav, footer, .skills div, .projects div, .contact-box, .achievement-card {
+            transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+        /* Dark Theme Styles */
+        body.dark-theme {
+            background: linear-gradient(to bottom, #0f172a, #1e293b); /* Modern dark gradient */
+            color: #ffffff; /* Change text color to white */
+        }
+        body.dark-theme header, 
+        body.dark-theme nav, 
+        body.dark-theme footer {
+            background: #1e293b; /* Dark navy background for header, nav, and footer */
+            color: #e2e8f0; /* Soft light gray text */
+        }
+        body.dark-theme .skills div, 
+        body.dark-theme .projects div, 
+        body.dark-theme .contact-box, 
+        body.dark-theme .achievement-card {
+            background: #2d3748; /* Dark card background */
+            color: #ffffff; /* Change text color to white */
+            border: 1px solid #4a5568; /* Subtle border for cards */
+        }
+        body.dark-theme nav a {
+            color: #63b3ed; /* Vibrant blue for nav links */
+        }
+        body.dark-theme nav a:hover {
+            color: #4299e1; /* Brighter blue for hover effect */
+        }
+        body.dark-theme .cta-btn {
+            background: #48bb78; /* Green button for contrast */
+            color: #ffffff; /* White text for buttons */
+        }
+        body.dark-theme .cta-btn:hover {
+            background: #38a169; /* Slightly darker green for hover */
+        }
+        body.dark-theme .theme-toggle-btn {
+            background: #48bb78; /* Green toggle button */
+            color: #ffffff; /* White text for contrast */
+        }
+        body.dark-theme .theme-toggle-btn:hover {
+            background: #38a169; /* Slightly darker green for hover */
+        }
+        body.dark-theme .achievement-card, 
+        body.dark-theme .project-card {
+            background: #2d3748; /* Dark card background */
+            color: #ffffff; /* Change text color to white */
+            border: 1px solid #4a5568; /* Subtle border for cards */
+        }
+        body.dark-theme .achievement-card:hover, 
+        body.dark-theme .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(66, 153, 225, 0.3); /* Cool blue shadow for hover */
+        }
+        body.dark-theme #achievements h2, 
+        body.dark-theme #projects h2, 
+        body.dark-theme #contact h2 {
+            color: #63b3ed; /* Vibrant blue for section titles */
+        }
+        body.dark-theme #contact a {
+            color: #63b3ed; /* Vibrant blue for links */
+        }
+        body.dark-theme #contact a:hover {
+            color: #4299e1; /* Brighter blue for hover effect */
+        }
+        body.dark-theme footer .social-icons a {
+            color: #005BB5; /* Vibrant blue for social icons */
+        }
+        body.dark-theme footer .social-icons a:hover {
+            color: #003f7f; /* Darker blue for hover effect */
+        }
+        body.dark-theme footer {
+            background: #ffffff; /* Change footer background to white */
+            color: #333; /* Change footer text color to dark gray for contrast */
+        }
+        #achievements {
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+            background: #f9f9f9; /* Match the background of #skills */
+            border-radius: 10px; /* Add rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        }
+        #achievements h2 {
+            font-size: 2rem;
+            color: #005BB5; /* Keep the heading color consistent */
+            margin-bottom: 1rem;
+        }
+        .achievements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .achievement-card {
+            flex: 1 1 calc(33.333% - 1rem); /* Responsive grid layout */
+            background: #fff;
+            padding: 1rem;
+            border: 1px solid #ddd; /* Clean border */
+            border-radius: 10px; /* Add rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth transition */
+            text-align: center;
+        }
+        .achievement-card:hover {
+            transform: scale(1.05); /* Smooth scaling effect */
+            box-shadow: 0 10px 25px rgba(0, 91, 181, 0.4); /* Blue glow shadow */
+        }
+        .achievement-card h3, .achievement-card p {
+            transition: color 0.3s ease; /* Smooth text color transition */
+        }
+        .achievement-card:hover h3, .achievement-card:hover p {
+            color: #005BB5; /* Change text color on hover */
+        }
+        #skills {
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+            background: #f9f9f9; /* Changed background to light gray */
+            border-radius: 10px; /* Optional: Add rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+        }
+        #skills h2 {
+            font-size: 2rem;
+            color: #005BB5; /* Keep the heading color consistent */
+            margin-bottom: 1rem;
+        }
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .skills div {
+            flex: 1 1 calc(33.333% - 1rem);
+            padding: 1rem;
+            color: #005BB5; /* Text color for skills */
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        .skills div i {
+            font-size: 2rem;
+            color: #005BB5;
+            margin-bottom: 0.5rem;
+        }
+        /* Dark Theme Adjustments */
+        body.dark-theme .project-card p,
+        body.dark-theme .achievement-card p {
+            color: #d1d5db; /* Light gray text for dark theme */
+        }
+        .project-card {
+            flex: 1 1 calc(33.333% - 1rem);
+            background: #fff;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth transition */
+            text-align: center;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05); /* Smooth scaling effect */
+            box-shadow: 0 10px 25px rgba(0, 91, 181, 0.4); /* Blue glow shadow */
+        }
+
+        .project-card h3, .project-card p {
+            transition: color 0.3s ease; /* Smooth text color transition */
+        }
+
+        .project-card:hover h3, .project-card:hover p {
+            color: #005BB5; /* Change text color on hover */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="photo.jpeg" alt="Profile Photo" class="profile-photo">
+            <div class="header-text">
+                <h1>Vishal Shende</h1>
+                <p>Web Developer | Designer | Problem Solver</p>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#contact">Contact</a>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle" onclick="toggleTheme()">
+            <span class="slider"></span>
+        </label>
+    </nav>
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Hello! I'm Vishal, a passionate web developer with a knack for creating elegant and efficient solutions. I specialize in front-end and back-end development, ensuring seamless user experiences.</p>
+    </section>
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills">
+            <div><i class="fab fa-html5"></i> HTML5 & CSS3</div>
+            <div><i class="fas fa-code"></i> C++</div>
+            <div><i class="fas fa-terminal"></i> C</div>
+            <div><i class="fab fa-python"></i> Python & Django</div>
+            <div><i class="fas fa-database"></i> SQL & NoSQL Databases</div>
+        </div>
+    </section>
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects">
+            <div class="project-card">
+                <h3>Portfolio Website</h3>
+                <p>A responsive portfolio showcasing my skills and projects.</p>
+            </div>
+            <div class="project-card">
+                <h3>Advanced Water ATM Model</h3>
+                <p>Developed an IoT-enabled water ATM system with real-time monitoring and automated water dispensing functionality.</p>
+            </div>
+            <div class="project-card">
+                <h3>Chatbot for Healthcare</h3>
+                <p>Designed an AI-powered chatbot to assist patients with healthcare queries, appointment scheduling, and symptom analysis, ensuring better accessibility to medical services.</p>
+            </div>
+            <div class="project-card">
+                <h3>Interactive Game</h3>
+                <p>Developed a browser-based interactive game using HTML5, CSS3, and JavaScript. The game features dynamic animations, scoring, and responsive design for an engaging user experience.</p>
+                <a href="http://127.0.0.1:5500/index.html" target="_blank" style="color: #005BB5; font-weight: bold; text-decoration: none;">Play Rock Paper Scissors</a>
+            </div>
+        </div>
+    </section>
+    <section id="achievements">
+        <h2>Achievements</h2>
+        <div class="achievements">
+            <div class="achievement-card">
+                <h3>NASSCOM Certification</h3>
+                <p>Earned a prestigious certification from NASSCOM, showcasing expertise in emerging technologies and industry standards.</p>
+            </div>
+            <div class="achievement-card">
+                <h3>Cisco Certification</h3>
+                <p>Achieved Cisco Certification, demonstrating proficiency in networking concepts and IT infrastructure management.</p>
+            </div>
+            <div class="achievement-card">
+                <h3>Great Learning Certificate of Oracle SQL</h3>
+                <p>Successfully completed a certification course on Oracle SQL from Great Learning, demonstrating expertise in database management and query optimization.</p>
+            </div>
+        </div>
+    </section>
+    <div class="modal-overlay" onclick="closeAchievementsModal()"></div>
+    <div class="achievements-modal">
+        <h2>More Achievements</h2>
+        <p>Here are some additional achievements that showcase my skills and expertise.</p>
+        <button class="close-modal" onclick="closeAchievementsModal()">Close</button>
+    </div>
+    <section id="contact">
+        <h2 style="font-size: 2.5rem; color: #005BB5; text-align: center;">Contact</h2>
+        <div class="contact-box">
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+            <p>Email: <a href="mailto:202401110034@mitaoe.ac.in">202401110034@mitaoe.ac.in</a></p>
+            <p>Phone: +91-8329719490</p>
+            <p>LinkedIn: <a href="https://linkedin.com/in/vishalshende" target="_blank">linkedin.com/in/vishalshende</a></p>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 Vishal Shende. All Rights Reserved.</p>
+        <div class="quick-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="social-icons">
+            <a href="https://github.com/vishalshende" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/vishalshende" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://twitter.com/vishalshende" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+    <div class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openAchievementsModal() {
+            document.querySelector('.achievements-modal').style.display = 'block';
+            document.querySelector('.modal-overlay').style.display = 'block';
+        }
+
+        function closeAchievementsModal() {
+            document.querySelector('.achievements-modal').style.display = 'none';
+            document.querySelector('.modal-overlay').style.display = 'none';
+        }
+
+        // Highlight the active link in the navigation bar
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll("nav a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop - 100; // Adjust for header height
+                const sectionHeight = section.offsetHeight;
+
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").includes(current)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
